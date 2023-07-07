@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from app.models import User
+from app.models import User, Geolocation
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,3 +18,12 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
         return user
+    
+class GeolocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Geolocation
+        fields = ['user', 'occurrence_datetime', 'geolocation_data']
+        
+    def create(self, validated_data):
+        geolocation = Geolocation.objects.create(**validated_data)
+        return geolocation

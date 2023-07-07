@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.gis.db import models
 
 from django.contrib.auth.models import AbstractUser
 
@@ -26,3 +27,11 @@ class User(AbstractUser):
     goes_to = models.CharField(max_length=255, choices=BUILDING_CHOICES)
     username = models.CharField(max_length=255, unique=True)
     password = models.CharField(max_length=255)
+    
+class Geolocation(models.Model):
+    user = models.IntegerField()
+    occurrence_datetime = models.DateTimeField()
+    geolocation_data = models.LineStringField()
+
+    def __str__(self):
+        return f'ID: {self.user}, Data/Hora: {self.occurrence_datetime}'
